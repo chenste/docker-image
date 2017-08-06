@@ -18,6 +18,6 @@ Information on creating docker file that supports GUI
    nvidia-docker run -ti --rm \
        -e DISPLAY=$DISPLAY \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
-       -v ~/docker-data/:/home/Documents/docker-data/ \
+       -v ~/docker-data/:/home/developer/Desktop/docker-data/ \
        tensorflow bash
 
