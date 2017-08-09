@@ -21,3 +21,8 @@ Information on creating docker file that supports GUI
        -v ~/docker-data/:/home/developer/Desktop/docker-data/ \
        tensorflow bash
 
+   docker run -ti --rm \
+       -e DISPLAY=$DISPLAY \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v ~/docker-data/:/home/developer/Desktop/docker-data/ \
+       tensorflow bash
