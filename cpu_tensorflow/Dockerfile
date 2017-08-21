@@ -6,10 +6,10 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 # Install apt-get
-RUN apt-get install -y python3-pip python3-dev sudo nautilus feh vim htop ipython3
+RUN apt-get install -y python3-pip python3-dev sudo nautilus feh vim htop ipython3 python3-tk
 
 # Install from pip
-RUN pip3 install pyyaml scipy numpy tensorflow scikit-learn
+RUN pip3 install pyyaml scipy numpy tensorflow scikit-learn matplotlib
 
 # Edit bashrc
 #RUN echo '#init_tensorflow' >> ~/.bashrc 
