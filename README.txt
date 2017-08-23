@@ -19,7 +19,7 @@ Information on creating docker file that supports GUI
        -e DISPLAY=$DISPLAY \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v ~/docker-data/:/home/developer/Desktop/docker-data/ \
-       tensorflow bash
+       cpu_tensorflow bash
 
    nvidia-docker run -ti --rm \
        -e DISPLAY=$DISPLAY \
