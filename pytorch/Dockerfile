@@ -7,9 +7,11 @@ RUN apt-get -y upgrade
 
 # Install apt-get
 RUN apt-get install -y python3-pip python3-dev sudo nautilus feh vim htop ipython3 python3-tk
-
+RUN apt-get install -y python3-nose
 # Install from pip
-RUN pip3 install pyyaml scipy numpy tensorflow scikit-learn matplotlib
+RUN pip3 install pyyaml scipy numpy scikit-learn matplotlib
+RUN pip3 install http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp35-cp35m-manylinux1_x86_64.whl 
+RUN pip3 install torchvision block qpth
 
 # Edit bashrc
 #RUN echo '#init_tensorflow' >> ~/.bashrc 
