@@ -1,6 +1,6 @@
 # DockerFile for tensorflow that supports GUI
 
-FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
 RUN apt-get -y update
 RUN apt-get -y upgrade
