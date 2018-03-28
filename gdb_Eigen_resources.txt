@@ -1,0 +1,27 @@
+http://www.dlgreenwald.com/misc/first-post
+
+Pretty Printing Eigen Objects in GDB
+9/4/2015 0 Comments
+ 
+Eigen is a fantastic matrix and linear algebra library for C++, which I highly recommend.
+
+Since it's important to be able to see inside a matrix while debugging, Eigen has provided Python "pretty printer" scripts for debuggers. The scripts for gdb (the debugger I use), are located in eigen/debug/gdb. 
+
+Note: package managers may not include this directory. If you don't have it, you can download a new copy of Eigen here. You don't need to replace your existing installation, just put the eigen/debug/gdb directory somewhere and use that for the instructions below.
+
+If you follow the directions in the comments of printers.py (in this directory), you can set up gdb so that it will print the contents of the matrix rather than some obscure sequence of pointers and iterators when you are debugging. Great!
+
+Recently, however, I started seeing the pointers and iterators again instead of the content. I also started getting errors like:
+ TypeError: 'map' object is not subscriptable
+
+This error is caused by the fact that the printers.py script is in Python 2, while my version of gdb is built in Python 3. To fix this issue, you can use the Python utility 2to3, which automatically converts Python 2 code to Python 3 code. To do this, go to the eigen/debug/gdb directory and run the shell command
+2to3 -w printers.py
+
+You should be good to go!
+
+
+https://bitbucket.org/eigen/eigen/src/12a658962d4e/debug/gdb/?at=default
+
+https://stackoverflow.com/questions/21340866/how-to-use-pretty-debugging-printers-to-see-eigen-objects-in-qtcreator
+
+https://stackoverflow.com/questions/10641029/how-to-reload-gdbinit

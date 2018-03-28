@@ -9,7 +9,13 @@ RUN apt-get -y upgrade
 RUN apt-get install -y python3-pip python3-dev sudo nautilus feh vim htop ipython3 python3-tk
 
 # Install from pip
-RUN pip3 install pyyaml scipy numpy tensorflow-gpu scikit-learn matplotlib
+RUN pip3 install pyyaml scipy numpy tensorflow-gpu scikit-learn matplotlib pyDOE cvxopt
+
+COPY sobol_seq /tmp/
+# DOCKER-VERSION 0.3.4
+#bunch of installs
+WORKDIR /tmp/
+RUN  python3 /tmp/setup.py install 
 
 # Edit bashrc
 #RUN echo '#init_tensorflow' >> ~/.bashrc 
@@ -29,5 +35,8 @@ RUN export uid=1000 gid=1000 && \
     chown ${uid}:${gid} -R /home/developer
 
 USER developer
-ENV HOME /home/developer
+ENV HOME /home/developer/Desktop/docker-data/
+WORKDIR /home/developer/Desktop/docker-data/
+
+
 
