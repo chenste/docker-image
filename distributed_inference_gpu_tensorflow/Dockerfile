@@ -2,7 +2,6 @@
 
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
-
 RUN apt-get -y update --fix-missing
 RUN apt-get -y upgrade
 
@@ -19,7 +18,7 @@ RUN pip3 install pyyaml scipy tensorflow-gpu numpy scikit-learn matplotlib
 ENV PYTHONPATH "${PYTHONPATH}:/home/developer/Desktop/docker-data/perimeter_defense/pdefense/"
 
 # Replace 1000 with your user / group id
-RUN export uid=1000 gid=1000 && \
+RUN export uid=1009 gid=1009 && \
     mkdir -p /home/developer && \
     echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
     echo "developer:x:${uid}:" >> /etc/group && \
