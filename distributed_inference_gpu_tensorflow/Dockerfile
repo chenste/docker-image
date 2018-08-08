@@ -2,42 +2,21 @@
 
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
-RUN apt-get -y update
+
+RUN apt-get -y update --fix-missing
 RUN apt-get -y upgrade
+
+RUN apt-get install tzdata
+RUN echo "US/Philadelphia" > /etc/timezone    
+RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Install apt-get
 RUN apt-get install -y python3-pip python3-dev sudo nautilus feh vim htop ipython3 python3-tk
 
 # Install from pip
-RUN pip3 install pyyaml scipy numpy tensorflow-gpu scikit-learn matplotlib pyDOE cvxopt
+RUN pip3 install pyyaml scipy tensorflow-gpu numpy scikit-learn matplotlib
 
-RUN \ 
-    pip3 install --no-cache-dir Cython
-
-#RUN pip3 install .
-
-
-# instal sobol_seq
-COPY sobol_seq /tmp/
-WORKDIR /tmp/
-RUN  python3 /tmp/setup.py install 
-
-
-# Install CPLEX
-USER root
-COPY ./solvers /home/solvers
-RUN if [ -d /home/solvers/ibm ]; then cd /home/solvers/ibm/cplex/python/3.5/x86-64_linux/ && \
-    python3 setup.py install &&\
-    cp /home/solvers/ibm/cplex/bin/x86-64_linux/cplex /usr/bin/; fi
-
-# Allow pycpx3 to find the CPLEX installation
-ENV CPLEX_PATH="/home/solvers/ibm/"
-
-COPY pycpx /tmp/
-## DOCKER-VERSION 0.3.4
-##bunch of installs
-WORKDIR /tmp/
-RUN  python3 /tmp/setup.py install --cython
+ENV PYTHONPATH "${PYTHONPATH}:/home/developer/Desktop/docker-data/perimeter_defense/pdefense/"
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
@@ -51,6 +30,7 @@ RUN export uid=1000 gid=1000 && \
 USER developer
 ENV HOME /home/developer/Desktop/docker-data/
 WORKDIR /home/developer/Desktop/docker-data/
+
 
 
 

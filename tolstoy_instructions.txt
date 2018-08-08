@@ -13,3 +13,8 @@ host: localhost
 port: 6000
 uer: tolstoy
 
+3) scp
+
+scp -r -P 6000 tolstoy@localhost:/home/tolstoy/MPC.png .
+
+

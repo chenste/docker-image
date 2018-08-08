@@ -32,3 +32,13 @@ Information on creating docker file that supports GUI
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v ~/docker-data/:/home/developer/Desktop/docker-data/ \
        pytorch bash
+
+   nvidia-docker run -ti --rm \
+       -e DISPLAY=$DISPLAY \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v ~/docker-data/:/home/developer/Desktop/docker-data/ \
+       distributed_inference_tf bash
+
+Instructions:
+1) Sobol Sequence
+2) Cplex
