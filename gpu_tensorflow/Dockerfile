@@ -6,7 +6,28 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 # Install apt-get
-RUN apt-get install -y python3-pip python3-dev sudo nautilus feh vim htop ipython3 python3-tk
+# update and install dependencies
+RUN         apt-get update \
+                && apt-get install -y \
+                    software-properties-common \
+                    wget \
+                && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
+                && apt-get update \
+                && apt-get install -y \
+                    make \
+                    git \
+                    curl \
+                    vim \
+                    vim-gnome \
+                && apt-get install -y cmake=3.5.1-1ubuntu3 \
+                && apt-get install -y \
+                    gcc-4.9 g++-4.9 gcc-4.9-base \
+                    gcc-4.8 g++-4.8 gcc-4.8-base \
+                    gcc-4.7 g++-4.7 gcc-4.7-base \
+                    gcc-4.6 g++-4.6 gcc-4.6-base \
+                && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 \
+                && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100
+RUN apt-get install -y python3-pip python3-dev sudo nautilus feh vim htop ipython3 python3-tk libeigen3-dev
 
 # Install from pip
 RUN pip3 install pyyaml scipy numpy tensorflow-gpu scikit-learn matplotlib pyDOE cvxopt
@@ -22,22 +43,6 @@ COPY sobol_seq /tmp/
 WORKDIR /tmp/
 RUN  python3 /tmp/setup.py install 
 
-
-# Install CPLEX
-USER root
-COPY ./solvers /home/solvers
-RUN if [ -d /home/solvers/ibm ]; then cd /home/solvers/ibm/cplex/python/3.5/x86-64_linux/ && \
-    python3 setup.py install &&\
-    cp /home/solvers/ibm/cplex/bin/x86-64_linux/cplex /usr/bin/; fi
-
-# Allow pycpx3 to find the CPLEX installation
-ENV CPLEX_PATH="/home/solvers/ibm/"
-
-COPY pycpx /tmp/
-## DOCKER-VERSION 0.3.4
-##bunch of installs
-WORKDIR /tmp/
-RUN  python3 /tmp/setup.py install --cython
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
